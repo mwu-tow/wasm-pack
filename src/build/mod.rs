@@ -132,7 +132,7 @@ pub fn cargo_build_wasm_tests(
 ) -> Result<(), Error> {
     let mut cmd = Command::new("cargo");
 
-    cmd.current_dir(path).arg("build").arg("--tests");
+    cmd.current_dir(path).arg("test").arg("--no-run");
 
     if PBAR.quiet() {
         cmd.arg("--quiet");
@@ -146,6 +146,6 @@ pub fn cargo_build_wasm_tests(
 
     cmd.args(extra_options);
 
-    child::run(cmd, "cargo build").context("Compilation of your program failed")?;
+    child::run(cmd, "cargo test build").context("Compilation of your program failed")?;
     Ok(())
 }
